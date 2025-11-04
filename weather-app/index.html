@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Seu Clima - App de Clima Dinâmico</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="src/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <script>
+    if (!('fetch' in window)) {
+      alert('Seu navegador não suporta recursos modernos (fetch). Atualize ou use um navegador recente.');
+    }
+  </script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">🌦️ Seu Clima</h1>
+      <div class="search-box">
+        <input type="text" id="city-input" placeholder="Digite uma cidade..." aria-label="Campo de busca por cidade" />
+        <button id="search-btn" title="Buscar Clima"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div id="error-message" class="error-message" style="display: none;"></div>
+
+    <section id="weather-section" class="weather-section">
+      <h2 class="section-title">Previsão Atual</h2>
+      <div id="weather-card-container" class="weather-card-container">
+        <p class="placeholder-text">Use a busca acima para ver a previsão do clima.</p>
+      </div>
+    </section>
+
+    <!-- NOVA SEÇÃO: Previsão de 7 dias -->
+    <section id="forecast-section" class="forecast-section">
+      <h2 class="section-title">Previsão Estendida - 7 dias</h2>
+      <div id="forecast-7d" class="forecast-7d">
+        <!-- cards serão injetados aqui -->
+        <p class="placeholder-text">A previsão de 7 dias aparecerá aqui quando você buscar uma cidade.</p>
+      </div>
+    </section>
+
+    <section class="rankings-section">
+      <h2 class="section-title">Ranking de Cidades (Top 5)</h2>
+      <div class="rankings-grid">
+
+        <div id="hot-cities" class="ranking-card hot">
+          <h3 class="ranking-title"><i class="fas fa-sun"></i> Mais Quentes</h3>
+          <ul id="hot-list" class="city-list">
+            <li class="loading-item">Carregando...</li>
+          </ul>
+        </div>
+
+        <div id="cold-cities" class="ranking-card cold">
+          <h3 class="ranking-title"><i class="fas fa-snowflake"></i> Mais Frias</h3>
+          <ul id="cold-list" class="city-list">
+            <li class="loading-item">Carregando...</li>
+          </ul>
+        </div>
+
+        <div id="wind-cities" class="ranking-card wind">
+          <h3 class="ranking-title"><i class="fas fa-wind"></i> Ventania (Vento > 15 km/h)</h3>
+          <ul id="rain-list" class="city-list">
+            <li class="loading-item">Carregando...</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 ClimaTempo Cover. Dados via <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.</p>
+  </footer>
+
+  <script type="module" src="src/js/app.js"></script>
+
+  <script>
+    window.addEventListener('error', (e) => {
+      if (e.filename && e.filename.includes('app.js')) {
+        const err = document.getElementById('error-message');
+        if (err) {
+          err.textContent = 'Erro ao carregar o aplicativo. Verifique se o arquivo app.js está na pasta correta.';
+          err.style.display = 'block';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
